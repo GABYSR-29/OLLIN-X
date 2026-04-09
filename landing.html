@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OllinX - Simulador 3D Industrial con IA</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-cogs"></i>
+                <span>OllinX</span>
+            </div>
+            <nav class="nav">
+                <a href="#inicio">Inicio</a>
+                <a href="#simulador">Simulador</a>
+                <a href="#resultados">Análisis</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Simulador 3D Industrial con IA</h1>
+                <p class="hero-subtitle">Diseña y mejora tu lugar de trabajo favorito</p>
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-cube"></i>
+                        <span>Visualización 3D</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-brain"></i>
+                        <span>Análisis IA</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Métricas en Tiempo Real</span>
+                    </div>
+                </div>
+                <button class="cta-button" onclick="iniciarDemo()">
+                    <i class="fas fa-play"></i> Iniciar Demostración
+                </button>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image">
+                    <img src="hero-industrial.png" alt="OllinX - Simulación Industrial Inteligente" class="main-hero-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características -->
+    <section class="features">
+        <div class="container">
+            <h2>¿Cómo funciona el simulador?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>1. Configuración</h3>
+                    <p>Define parámetros personalizables de tu línea de producción: estaciones, tiempos, operarios y costos exactos</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>2. Simulación</h3>
+                    <p>Ejecuta escenarios comparativos del estado actual vs mejoras propuestas</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>3. Análisis</h3>
+                    <p>Recibe insights inteligentes sobre cuellos de botella y oportunidades</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulador Demo -->
+    <section id="simulador" class="simulator-section">
+        <div class="container">
+            <h2>Demostración Interactiva</h2>
+            
+            <div class="simulator-layout">
+                <!-- Panel de Control -->
+                <div class="control-panel">
+                    <h3>Panel de Control</h3>
+                    
+                    <div class="control-group">
+                        <label>Escenario:</label>
+                        <select id="escenario">
+                            <option value="actual">Estado Actual</option>
+                            <option value="mejorado">Propuesta Mejorada</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Estaciones de Trabajo:</label>
+                        <input type="range" id="estaciones" min="3" max="8" value="5">
+                        <span id="estaciones-value">5</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Tiempo por Unidad (seg):</label>
+                        <input type="range" id="tiempo" min="30" max="120" value="60">
+                        <span id="tiempo-value">60</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Operarios por Estación:</label>
+                        <input type="range" id="operarios" min="1" max="4" value="2">
+                        <span id="operarios-value">2</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Costo por Hora (¢/hr):</label>
+                        <input type="range" id="costo-hora" min="15" max="35" value="25">
+                        <span id="costo-hora-value">25</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Costo Material por Unidad (¢):</label>
+                        <input type="range" id="costo-material" min="5" max="25" value="12">
+                        <span id="costo-material-value">12</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Unidades por Lote:</label>
+                        <input type="range" id="lote" min="50" max="500" value="100">
+                        <span id="lote-value">100</span>
+                    </div>
+                    
+                    <button class="simulate-btn" onclick="ejecutarSimulacion()">
+                        <i class="fas fa-play"></i> Ejecutar Simulación
+                    </button>
+                    
+                    <div class="status" id="status">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Listo para simular</span>
+                    </div>
+                </div>
+
+                <!-- Área de Visualización 3D -->
+                <div class="visualization-area">
+                    <h3>Visualización 3D de la Línea de Producción</h3>
+                    <div class="mockup-viewport">
+                        <div class="production-line">
+                            <div class="station active">
+                                <i class="fas fa-hammer"></i>
+                                <span>Estación 1</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="station active">
+                                <i class="fas fa-wrench"></i>
+                                <span>Estación 2</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div class="station bottleneck">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Estación 3</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="station">
+                                <i class="fas fa-box"></i>
+                                <span>Estación 4</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            <div class="station">
+                                <i class="fas fa-truck"></i>
+                                <span>Salida</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 10%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="legend">
+                            <span class="legend-item active">🟢 Funcionando</span>
+                            <span class="legend-item bottleneck">🔴 Cuello de Botella</span>
+                            <span class="legend-item idle">⚪ Inactivo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados y Análisis -->
+    <section id="resultados" class="results-section">
+        <div class="container">
+            <h2>Análisis Inteligente de Resultados</h2>
+            
+            <div class="results-layout">
+                <div class="metrics-panel">
+                    <h3>Métricas Comparativas</h3>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-label">Tiempo Total</span>
+                            <span class="metric-value">24.5 min</span>
+                            <span class="metric-change positive">-15% vs actual</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-label">Eficiencia</span>
+                            <span class="metric-value">85%</span>
+                            <span class="metric-change positive">+12% vs actual</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-label">Costo/Hora</span>
+                            <span class="metric-value">$485</span>
+                            <span class="metric-change positive">-8% vs actual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-analysis">
+                    <h3>🤖 Análisis IA</h3>
+                    <div class="analysis-content">
+                        <div class="insight">
+                            <i class="fas fa-lightbulb"></i>
+                            <p><strong>Cuello de botella identificado:</strong> La Estación 3 está operando al 90% de capacidad, limitando el flujo general.</p>
+                        </div>
+                        <div class="insight">
+                            <i class="fas fa-trending-up"></i>
+                            <p><strong>Oportunidad de mejora:</strong> Agregar un operario adicional en Estación 3 podría incrementar la eficiencia en un 15%.</p>
+                        </div>
+                        <div class="insight">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <p><strong>Impacto económico:</strong> La inversión se recuperaría en 3.2 meses con el ahorro estimado de $485/hora.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gráfica Demo -->
+            <div class="chart-container">
+                <h3>Comparativa Visual</h3>
+                <canvas id="comparisonChart" width="800" height="300"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>OllinX</h3>
+                    <p>Simulación inteligente para la industria del futuro</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>📧 contacto@ollinx.com</p>
+                    <p>📞 +52 (55) 1234-5678</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
